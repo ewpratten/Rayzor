@@ -68,4 +68,9 @@ public class Ray {
         // Return the newly generated ray
         return new Ray(new Vector3d(0, 0, 0), directionVector);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s", origin.toString(), direction.toString());
+    }
 }

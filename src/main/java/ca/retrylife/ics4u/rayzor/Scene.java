@@ -2,6 +2,7 @@ package ca.retrylife.ics4u.rayzor;
 
 import java.awt.image.BufferedImage;
 import java.awt.Dimension;
+import java.awt.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +60,39 @@ public class Scene {
     }
 
     public BufferedImage render() {
-        return new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+
+        // Create the render frame
+        BufferedImage frame = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+
+        // Draw all pixels to frame
+        for (int x = 0; x < frame.getWidth(); x++) {
+            for (int y = 0; y < frame.getHeight(); y++) {
+
+                // Create ray for pixel
+                Ray ray = Ray.prime(x, y, this);
+
+                // Check each scene object
+                for (Sphere object : objects) {
+
+                    // Check for intersection
+                    if (object.intersects(ray)) {
+
+                        // Set the pixel value
+                        frame.setRGB(x, y,
+                                new Color(object.color.x * 255, object.color.x * 255, object.color.z * 255).getRGB());
+                        System.out.println("PX");
+                    } else {
+                        frame.setRGB(x, y, Color.black.getRGB());
+                    }
+
+                }
+
+            }
+
+        }
+
+        // Return the rendered frame
+        return frame;
     }
 
 }
