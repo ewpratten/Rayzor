@@ -3,14 +3,17 @@ package ca.retrylife.ics4u.rayzor.objects;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
+import ca.retrylife.ics4u.rayzor.Ray;
+import ca.retrylife.ics4u.rayzor.interfaces.Intersectable;
+
 /**
  * A sphere object
  */
-public class Sphere {
+public class Sphere implements Intersectable {
 
     // Sphere attributes
     public Vector3d centre;
-    public double raduis;
+    public double radius;
     public Color3f color;
 
     /**
@@ -22,7 +25,23 @@ public class Sphere {
      */
     public Sphere(Vector3d centre, double radius, Color3f color) {
         this.centre = centre;
-        this.raduis = radius;
+        this.radius = radius;
         this.color = color;
+    }
+
+    @Override
+    public boolean intersects(Ray ray) {
+        // Create a line segment from the ray's origin to the sphere's centre
+        Vector3d segment = new Vector3d((centre.x - ray.origin.x), (centre.y - ray.origin.y),
+                (centre.z - ray.origin.z));
+
+        // Using the segment as the hypot, find the adg side
+        double adj2 = segment.dot(ray.direction);
+
+        // Find the length-squared of the opposite side
+        double d2 = segment.dot(segment) - (adj2 * adj2);
+
+        // If length-squared is less than radius squared, the ray intersects the sphere
+        return d2 < (radius * radius);
     }
 }
