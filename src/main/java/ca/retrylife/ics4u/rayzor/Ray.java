@@ -46,7 +46,7 @@ public class Ray {
         // Add .5 to our pixel position, and cast to a double. This will cause the ray
         // to pass through the center of the pixel, rather than it's edge
         double pixelCentreX = (double) x + 0.5;
-        double pixelCentreY = (double) x + 0.5;
+        double pixelCentreY = (double) y + 0.5;
 
         // Convert the scene width from pixels [0-800] to percentage [0.0-1.0]
         double sensorX = pixelCentreX / (double) scene.size.getWidth();
