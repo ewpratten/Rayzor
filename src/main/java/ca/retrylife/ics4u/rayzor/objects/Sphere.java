@@ -30,48 +30,41 @@ public class Sphere implements Intersectable {
     }
 
     @Override
-    public Double intersects(Ray ray) {
-        // Create a line segment from the ray's origin to the sphere's centre
-        // Vector3 segment = Vector3.sub(centre, ray.origin);
-        // double adj = segment.length();
-        // // Vector3d segment = new Vector3d((centre.x - ray.origin.x), (centre.y -
-        // // ray.origin.y),
-        // // (centre.z - ray.origin.z));
+    public boolean doesIntersect(Ray ray) {
 
-        // // Vector3d segment = centre.sub(ray.origin);
-        // // Vector3 segment = new Vector3(centre);
-        // // segment.sub(ray.origin);
-
-        // // Using the segment as the hypot, find the adg side
-        // double hyp = segment.dot(ray.direction);
-
-        // // Find the length-squared of the opposite side
-        // double d2 = segment.dot(segment) - (adj2 * adj2);
-
-        // // If length-squared is less than radius squared, the ray intersects the
-        // // sphere
-        // return d2 < (radius * radius);
-
-        // float delta = 0;
-        // Vector3d omc = Vector3d.sub(centre, ray.origin);
-        // float b = Vector3d.Dot(ray, omc);
-        // delta = b * b - Vector3d.Dot(omc, omc) + r * r;
-        // return delta >= 0;
-
+        // Find distance from centre to origin
         Vector3 l = Vector3.sub(centre, ray.origin);
 
+        // Calculate triangle sides
         double adj = l.dot(ray.direction);
-        double d2 = l.dot(l) - (adj * adj);
+        double opp = l.dot(l) - (adj * adj);
 
+        // Squared radius
         double radius2 = radius * radius;
 
-        // If d2 is outside the sphere, there is no intersection. Therefore, the
-        // intersection is null
-        if (d2 > radius2) {
+        // If opp is less than the radius, it is in the sphere
+        return opp <= radius2;
+    }
+
+    @Override
+    public Double getIntersection(Ray ray) {
+        // Find distance from centre to origin
+        Vector3 l = Vector3.sub(centre, ray.origin);
+
+        // Calculate triangle sides
+        double adj = l.dot(ray.direction);
+        double opp = l.dot(l) - (adj * adj);
+
+        // Squared radius
+        double radius2 = radius * radius;
+
+        // If opp is greater than the radius, it is not intersecting
+        if (opp > radius2) {
             return null;
         }
 
-        double thc = Math.sqrt(radius2 - d2);
+        // Calc and return intersection
+        double thc = Math.sqrt(radius2 - opp);
         double t0 = adj - thc;
         double t1 = adj + thc;
 

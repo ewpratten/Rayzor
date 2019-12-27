@@ -8,10 +8,18 @@ import ca.retrylife.ics4u.rayzor.Ray;
 public interface Intersectable {
 
     /**
-     * Check if intersects with a ray
+     * Check for intersection with a ray
+     * 
+     * @param rayray Ray to check
+     * @return Dows intersect?
+     */
+    public boolean doesIntersect(Ray ray);
+
+    /**
+     * Check intersection with ray
      * 
      * @param ray Ray to check
      * @return Intersection
      */
-    public Double intersects(Ray ray);
+    public Double getIntersection(Ray ray);
 }

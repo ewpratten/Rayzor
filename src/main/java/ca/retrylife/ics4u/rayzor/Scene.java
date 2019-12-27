@@ -75,9 +75,7 @@ public class Scene {
                 for (Sphere object : objects) {
 
                     // Check for intersection
-                    Double intersection = object.intersects(ray);
-                    if (intersection != null) {
-                        System.out.println(intersection);
+                    if (object.doesIntersect(ray)) {
 
                         // Set the pixel value
                         frame.setRGB(x, y, new Color(Math.round(object.color.x * 254), Math.round(object.color.y * 254),
