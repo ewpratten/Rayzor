@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
-import ca.retrylife.ics4u.rayzor.objects.Sphere;
+import ca.retrylife.ics4u.rayzor.objects.SceneObject;
 
 /**
  * A renderable scene
@@ -20,7 +20,7 @@ public class Scene {
     public double fov;
 
     // Scene objects
-    ArrayList<Sphere> objects = new ArrayList<>();
+    ArrayList<SceneObject> objects = new ArrayList<>();
 
     /**
      * Create a scene of a specific size with pre-defined objects
@@ -29,7 +29,7 @@ public class Scene {
      * @param fov     Scene FOV
      * @param objects Renderable objects for scene
      */
-    public Scene(Dimension size, double fov, Sphere... objects) {
+    public Scene(Dimension size, double fov, SceneObject objects) {
         this(size, fov);
 
         // Add all objects
@@ -56,7 +56,7 @@ public class Scene {
      * 
      * @param obj Object for scene
      */
-    public void addObject(Sphere obj) {
+    public void addObject(SceneObject obj) {
         objects.add(obj);
     }
 
@@ -72,16 +72,13 @@ public class Scene {
         Intersection smallest = null;
 
         // Check each object
-        for (Sphere object : objects) {
+        for (SceneObject object : objects) {
 
             // Get the intersect distance
-            Double distance = object.getIntersection(ray);
+            Intersection i = object.getIntersection(ray);
 
             // Ensure that there is actually an intersection
-            if (distance != null) {
-
-                // Create an intersection object
-                Intersection i = new Intersection(distance, object);
+            if (i != null) {
 
                 // Set if smallest
                 if (smallest == null || i.distance < smallest.distance) {
@@ -112,10 +109,10 @@ public class Scene {
                 Ray ray = Ray.prime(x, y, this);
 
                 // Check each scene object
-                for (Sphere object : objects) {
+                for (SceneObject object : objects) {
 
                     // Check for intersection
-                    if (object.doesIntersect(ray)) {
+                    if (object.getIntersection(ray) != null) {
 
                         // Set the pixel value
                         frame.setRGB(x, y, new Color(Math.round(object.color.x * 254), Math.round(object.color.y * 254),

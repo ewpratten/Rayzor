@@ -1,15 +1,15 @@
 package ca.retrylife.ics4u.rayzor.geometry;
 
-import ca.retrylife.ics4u.rayzor.objects.Sphere;
+import ca.retrylife.ics4u.rayzor.objects.SceneObject;
 
 /**
  * Ray intersection
  */
 public class Intersection {
     public double distance;
-    public Sphere object;
+    public SceneObject object;
 
-    public Intersection(double distance, Sphere object){
+    public Intersection(double distance, SceneObject object){
         this.distance = distance;
         this.object = object;
     }
