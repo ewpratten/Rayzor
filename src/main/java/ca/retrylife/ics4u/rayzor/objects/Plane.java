@@ -1,8 +1,7 @@
 package ca.retrylife.ics4u.rayzor.objects;
 
-import javax.vecmath.Color3f;
-
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
+import ca.retrylife.ics4u.rayzor.textures.Material;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -20,11 +19,10 @@ public class Plane extends SceneObject {
      * @param color  Object color
      * @param albedo Reflectivity
      */
-    public Plane(Vector3 origin, Vector3 normal, Color3f color, double albedo) {
+    public Plane(Vector3 origin, Vector3 normal, Material mat) {
         this.origin = origin;
         this.normal = normal;
-        this.color = color;
-        this.albedo = albedo;
+        this.material = mat;
 
     }
 

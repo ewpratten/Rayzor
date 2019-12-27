@@ -47,10 +47,10 @@ public class DirectionalLight extends Light {
         double lightPower = ((double) surfaceNormal.dot(directionToLight)) * intensity;
 
         // Calculate the amount of light reflected
-        double reflected = intersection.object.albedo / Math.PI;
+        double reflected = intersection.object.material.albedo / Math.PI;
 
         return Vector3.mul(
-                Vector3.mul(Vector3.mul(Vector3.fromColor3f(intersection.object.color), Vector3.fromColor3f(color)),
+                Vector3.mul(Vector3.mul(Vector3.fromColor3f(intersection.object.material.color), Vector3.fromColor3f(color)),
                         lightPower),
                 reflected);
     }

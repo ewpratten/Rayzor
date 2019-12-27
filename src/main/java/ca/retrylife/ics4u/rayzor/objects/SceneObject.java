@@ -1,24 +1,19 @@
 package ca.retrylife.ics4u.rayzor.objects;
 
-import javax.vecmath.Color3f;
 
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 import ca.retrylife.ics4u.rayzor.interfaces.Intersectable;
+import ca.retrylife.ics4u.rayzor.textures.Material;
 
 /**
  * A scene object
  */
-public abstract class SceneObject implements Intersectable {
+public abstract class SceneObject  implements Intersectable {
 
     /**
-     * Object color vector
+     * Object material
      */
-    public Color3f color;
-
-    /**
-     * Reflectivity of the object
-     */
-    public double albedo;
+    public Material material;
 
     /**
      * Get the surface normal from a hit point

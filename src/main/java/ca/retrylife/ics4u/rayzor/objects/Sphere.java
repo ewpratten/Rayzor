@@ -1,8 +1,7 @@
 package ca.retrylife.ics4u.rayzor.objects;
 
-import javax.vecmath.Color3f;
-
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
+import ca.retrylife.ics4u.rayzor.textures.Material;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -14,20 +13,19 @@ public class Sphere extends SceneObject {
     // Sphere attributes
     public Vector3 centre;
     public double radius;
+    
 
     /**
      * Create a Sphere
      * 
      * @param centre Centre point of sphere
      * @param radius Sphere radius
-     * @param color  Sphere color
-     * @param albedo Reflectivity
+     * @param mat Shape material
      */
-    public Sphere(Vector3 centre, double radius, Color3f color, double albedo) {
+    public Sphere(Vector3 centre, double radius, Material mat) {
         this.centre = centre;
         this.radius = radius;
-        this.color = color;
-        this.albedo = albedo;
+        this.material = mat;
     }
 
     @Override
