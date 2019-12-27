@@ -1,13 +1,13 @@
 package ca.retrylife.ics4u.rayzor;
 
-import javax.vecmath.Vector3d;
+import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
 /**
  * A castable ray
  */
 public class Ray {
-    public Vector3d origin;
-    public Vector3d direction;
+    public Vector3 origin;
+    public Vector3 direction;
 
     /**
      * Create a Ray
@@ -15,7 +15,7 @@ public class Ray {
      * @param origin    Ray origin
      * @param direction Ray direction
      */
-    public Ray(Vector3d origin, Vector3d direction) {
+    public Ray(Vector3 origin, Vector3 direction) {
         this.origin = origin;
         this.direction = direction;
     }
@@ -62,11 +62,11 @@ public class Ray {
         sensorY *= fovAdjustment;
 
         // Create a direction vector
-        Vector3d directionVector = new Vector3d(sensorX, sensorY, -1.0);
+        Vector3 directionVector = new Vector3(sensorX, sensorY, -1.0);
         directionVector.normalize();
 
         // Return the newly generated ray
-        return new Ray(new Vector3d(0, 0, 0), directionVector);
+        return new Ray(new Vector3(0, 0, 0), directionVector);
     }
 
     @Override

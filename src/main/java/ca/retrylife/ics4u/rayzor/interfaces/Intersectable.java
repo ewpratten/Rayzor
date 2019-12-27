@@ -11,7 +11,7 @@ public interface Intersectable {
      * Check if intersects with a ray
      * 
      * @param ray Ray to check
-     * @return Does it intersect?
+     * @return Intersection
      */
-    public boolean intersects(Ray ray);
+    public Double intersects(Ray ray);
 }

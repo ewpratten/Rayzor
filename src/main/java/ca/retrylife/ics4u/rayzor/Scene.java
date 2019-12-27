@@ -75,12 +75,15 @@ public class Scene {
                 for (Sphere object : objects) {
 
                     // Check for intersection
-                    if (object.intersects(ray)) {
+                    Double intersection = object.intersects(ray);
+                    if (intersection != null) {
+                        System.out.println(intersection);
 
                         // Set the pixel value
-                        frame.setRGB(x, y,
-                                new Color(object.color.x * 255, object.color.x * 255, object.color.z * 255).getRGB());
-                        System.out.println("PX");
+                        frame.setRGB(x, y, new Color(Math.round(object.color.x * 254), Math.round(object.color.y * 254),
+                                Math.round(object.color.z * 254)).getRGB());
+
+                        // System.out.println("PX");
                     } else {
                         frame.setRGB(x, y, Color.black.getRGB());
                     }
