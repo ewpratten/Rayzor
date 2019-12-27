@@ -13,6 +13,8 @@ public class SceneLoader {
     public static void loadFromJSON(String filepath, Scene scene) throws FileNotFoundException, ParseException, IOException {
         
         // Load the JSON file
-        JSONObject json = (JSONObject) new JSONParser().parse(new FileReader("JSONExample.json"));
+        JSONObject json = (JSONObject) new JSONParser().parse(new FileReader(filepath));
+
+        System.out.println(json);
     }
 }
