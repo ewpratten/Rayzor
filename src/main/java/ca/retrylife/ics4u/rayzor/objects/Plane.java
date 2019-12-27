@@ -2,6 +2,9 @@ package ca.retrylife.ics4u.rayzor.objects;
 
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.textures.Material;
+
+import javax.vecmath.Point2f;
+
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -61,6 +64,24 @@ public class Plane extends SceneObject {
     @Override
     public Vector3 getSurfaceNormal(Vector3 hitPoint) {
         return Vector3.negate(normal);
+    }
+
+    @Override
+    public Point2f getTextureCoords(Vector3 hitPoint) {
+
+        // Calculate hit coords
+        Vector3 xAxis = normal.cross(new Vector3(0.0, 0.0, 1.0));
+
+        if (xAxis.length() == 0.0) {
+            xAxis = normal.cross(new Vector3(0.0, 1.0, 0.0));
+        }
+
+        Vector3 yAxis = normal.cross(xAxis);
+
+        // Compute hit from origin against axes
+        Vector3 hitVector = Vector3.sub(hitPoint, origin);
+
+        return new Point2f((float) hitVector.dot(xAxis), (float) hitVector.dot(yAxis));
     }
 
 }

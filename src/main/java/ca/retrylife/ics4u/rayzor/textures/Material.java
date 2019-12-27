@@ -17,6 +17,21 @@ public class Material {
      */
     public double albedo;
 
+    public boolean isReflective;
+
+    /**
+     * Create a material
+     * 
+     * @param color  Material color
+     * @param albedo Material reflectivity
+     * @param isReflective Is the material reflective?
+     */
+    public Material(Color3f color, double albedo, boolean isReflective) {
+        this.color = color;
+        this.albedo = albedo;
+        this.isReflective = isReflective;
+    }
+
     /**
      * Create a material
      * 
@@ -24,8 +39,7 @@ public class Material {
      * @param albedo Material reflectivity
      */
     public Material(Color3f color, double albedo) {
-        this.color = color;
-        this.albedo = albedo;
+        this(color, albedo, false);
     }
 
 }

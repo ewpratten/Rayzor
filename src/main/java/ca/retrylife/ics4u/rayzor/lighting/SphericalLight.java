@@ -17,8 +17,13 @@ public class SphericalLight extends Light {
     }
 
     @Override
-    public Vector3 getColorVectorForRay(Scene scene, Intersection intersection, Vector3 hitPoint,
-            Vector3 surfaceNormal) {
+    public Vector3 getColorVectorForRay(Scene scene, Ray ray, Intersection intersection, int depth) {
+
+        // Calculate the hit point
+        Vector3 hitPoint = Vector3.add(ray.origin, Vector3.mul(ray.direction, intersection.distance));
+
+        // Find the surface's normal
+        Vector3 surfaceNormal = intersection.object.getSurfaceNormal(hitPoint);
 
         // Get the direction to the light
         Vector3 directionToLight = Vector3.sub(position, hitPoint).normalize();
@@ -30,7 +35,8 @@ public class SphericalLight extends Light {
         Intersection shadowIntersection = scene.follow(shadow);
 
         // check if the nearest intersection is closer than the light is
-        boolean inLight = shadowIntersection == null || shadowIntersection.distance > Vector3.sub(position, hitPoint).length();
+        boolean inLight = shadowIntersection == null
+                || shadowIntersection.distance > Vector3.sub(position, hitPoint).length();
 
         // Calculate lighting intensity with the Inverse Square Law
         double r2 = Vector3.sub(position, hitPoint).norm();
@@ -43,9 +49,22 @@ public class SphericalLight extends Light {
         // Calculate the amount of light reflected
         double reflected = intersection.object.material.albedo / Math.PI;
 
-        return Vector3.mul(
-                Vector3.mul(Vector3.mul(Vector3.fromColor3f(intersection.object.material.color), Vector3.fromColor3f(color)),
-                        lightPower),
-                reflected);
+        // Calculate the diffuse color
+        Vector3 diffuseColor = Vector3.mul(Vector3.mul(
+                Vector3.mul(Vector3.fromColor3f(intersection.object.material.color), Vector3.fromColor3f(color)),
+                lightPower), reflected);
+            
+        // If there is no reflection, there is no reflectivity
+        if (intersection.object.material.isReflective) {
+            
+            // Create a reflected ray
+            Ray reflectedRay = Ray.createReflection(surfaceNormal, ray.direction, hitPoint, scene.SHADOW_BIAS);
+
+            // Handle color reflectivity
+            diffuseColor = Vector3.mul(diffuseColor, (1.0 - reflected));
+            diffuseColor = Vector3.add(diffuseColor, Vector3.mul(castRay(scene, reflectedRay, depth + 1), reflected));
+        }
+
+        return diffuseColor;
     }
 }

@@ -11,7 +11,6 @@ import javax.vecmath.Color3f;
 
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
-import ca.retrylife.ics4u.rayzor.lighting.DirectionalLight;
 import ca.retrylife.ics4u.rayzor.lighting.Light;
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.objects.SceneObject;
@@ -22,7 +21,8 @@ import ca.retrylife.ics4u.rayzor.objects.SceneObject;
 public class Scene {
 
     // Constants
-    public final double SHADOW_BIAS = 1e-13;
+    public final double SHADOW_BIAS = 1e-14;
+    public final int MAX_DEPTH = 10000;
 
     // Scene sizing
     public Dimension size;
@@ -138,17 +138,11 @@ public class Scene {
 
         Vector3 output = Vector3.zero();
 
-        // Calculate the hit point
-        Vector3 hitPoint = Vector3.add(ray.origin, Vector3.mul(ray.direction, intersection.distance));
-
-        // Find the surface's normal
-        Vector3 surfaceNormal = intersection.object.getSurfaceNormal(hitPoint);
-
         // Calculate each scene light
         for (Light light : lights) {
 
             // Calculate the light's color
-            Vector3 lightColor = light.getColorVectorForRay(this, intersection, hitPoint, surfaceNormal);
+            Vector3 lightColor = light.castRay(this, ray, 0);
 
             // Accumulate the color
             output = Vector3.add(output, lightColor);

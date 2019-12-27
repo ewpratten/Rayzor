@@ -2,6 +2,9 @@ package ca.retrylife.ics4u.rayzor.objects;
 
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.textures.Material;
+
+import javax.vecmath.Point2f;
+
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -13,14 +16,13 @@ public class Sphere extends SceneObject {
     // Sphere attributes
     public Vector3 centre;
     public double radius;
-    
 
     /**
      * Create a Sphere
      * 
      * @param centre Centre point of sphere
      * @param radius Sphere radius
-     * @param mat Shape material
+     * @param mat    Shape material
      */
     public Sphere(Vector3 centre, double radius, Material mat) {
         this.centre = centre;
@@ -67,5 +69,19 @@ public class Sphere extends SceneObject {
     public Vector3 getSurfaceNormal(Vector3 hitPoint) {
 
         return Vector3.sub(hitPoint, centre).normalize();
+    }
+
+    @Override
+    public Point2f getTextureCoords(Vector3 hitPoint) {
+        
+        // Compute spherical coordinates
+        double phi = Math.atan2(hitPoint.z, hitPoint.x);
+        double theta = Math.acos(hitPoint.y / radius);
+
+        // Adjust to map to [0-1]
+        phi = (1 + phi / Math.PI) * 0.5;
+        theta = theta / Math.PI;
+
+        return new Point2f((float)phi, (float)theta);
     }
 }

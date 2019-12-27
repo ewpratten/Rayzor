@@ -69,6 +69,20 @@ public class Ray {
         return new Ray(new Vector3(0, 0, 0), directionVector.normalize());
     }
 
+    /**
+     * Create a reflective ray from an intersection
+     * 
+     * @param normal       Intersection normal
+     * @param incident     Intersection incident
+     * @param intersection Intersection point
+     * @param bias         Bias
+     * @return Reflective ray
+     */
+    public static Ray createReflection(Vector3 normal, Vector3 incident, Vector3 intersection, double bias) {
+        return new Ray(Vector3.add(intersection, Vector3.mul(normal, bias)),
+                Vector3.sub(incident, Vector3.mul(normal, (2.0 * incident.dot(normal)))));
+    }
+
     @Override
     public String toString() {
         return String.format("%s -> %s", origin.toString(), direction.toString());

@@ -28,6 +28,11 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.vecmath/vecmath
     compile group: 'javax.vecmath', name: 'vecmath', version: '1.5.2'
 
+    // JSON library
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+
 }
 
 // Define the main class for the application
