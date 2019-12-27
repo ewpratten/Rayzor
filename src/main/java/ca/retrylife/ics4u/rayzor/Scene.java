@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.objects.Sphere;
 
 /**
@@ -59,6 +60,45 @@ public class Scene {
         objects.add(obj);
     }
 
+    /**
+     * Follow a ray to find the nearest intersection
+     * 
+     * @param ray Ray to follow
+     * @return Nearest intersection
+     */
+    public Intersection follow(Ray ray) {
+
+        // Create a null intersection in case of no intersections found
+        Intersection smallest = null;
+
+        // Check each object
+        for (Sphere object : objects) {
+
+            // Get the intersect distance
+            Double distance = object.getIntersection(ray);
+
+            // Ensure that there is actually an intersection
+            if (distance != null) {
+
+                // Create an intersection object
+                Intersection i = new Intersection(distance, object);
+
+                // Set if smallest
+                if (smallest == null || i.distance < smallest.distance) {
+                    smallest = i;
+                }
+            }
+        }
+
+        // Return the closest intersection
+        return smallest;
+    }
+
+    /**
+     * Render the scene to an image
+     * 
+     * @return Rendered image
+     */
     public BufferedImage render() {
 
         // Create the render frame
