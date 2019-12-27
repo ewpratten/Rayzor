@@ -107,23 +107,24 @@ public class Scene {
 
                 // Create ray for pixel
                 Ray ray = Ray.prime(x, y, this);
+                Intersection i = follow(ray);
 
                 // Check each scene object
-                for (SceneObject object : objects) {
+                // for (SceneObject object : objects) {
 
-                    // Check for intersection
-                    if (object.getIntersection(ray) != null) {
+                // Check for intersection
+                if (i != null) {
 
-                        // Set the pixel value
-                        frame.setRGB(x, y, new Color(Math.round(object.color.x * 254), Math.round(object.color.y * 254),
-                                Math.round(object.color.z * 254)).getRGB());
+                    // Set the pixel value
+                    frame.setRGB(x, y, new Color(Math.round(i.object.color.x * 254), Math.round(i.object.color.y * 254),
+                            Math.round(i.object.color.z * 254)).getRGB());
 
-                        // System.out.println("PX");
-                    } else {
-                        frame.setRGB(x, y, Color.black.getRGB());
-                    }
-
+                    // System.out.println("PX");
+                } else {
+                    frame.setRGB(x, y, Color.black.getRGB());
                 }
+
+                // }
 
             }
 

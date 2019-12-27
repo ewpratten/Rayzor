@@ -1,5 +1,7 @@
 package ca.retrylife.ics4u.rayzor.objects;
 
+import javax.vecmath.Color3f;
+
 import ca.retrylife.ics4u.rayzor.Ray;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
@@ -16,9 +18,10 @@ public class Plane extends SceneObject {
      * @param origin Point
      * @param normal Normal
      */
-    public Plane(Vector3 origin, Vector3 normal) {
+    public Plane(Vector3 origin, Vector3 normal, Color3f color) {
         this.origin = origin;
         this.normal = normal;
+        this.color = color;
 
     }
 

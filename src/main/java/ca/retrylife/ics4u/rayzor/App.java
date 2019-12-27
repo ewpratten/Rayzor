@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
+import ca.retrylife.ics4u.rayzor.objects.Plane;
 import ca.retrylife.ics4u.rayzor.objects.Sphere;
 
 public class App implements Runnable {
@@ -29,9 +30,14 @@ public class App implements Runnable {
         // Create a scene
         scene = new Scene(new Dimension(800, 600), 90.0);
 
-        // Add a sphere to the scene to be rendered
-        Sphere s = new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Color3f(.4f, 1.f, .4f));
-        scene.addObject(s);
+        // Add objects to scene
+        scene.addObject(
+                new Plane(new Vector3(0.0, 0.0, -20.0), new Vector3(0.0, 0.0, -1.0), new Color3f(0.6f, 0.8f, 1.0f)));
+        scene.addObject(
+                new Plane(new Vector3(0.0, -2.0, 0.0), new Vector3(0.0, -1.0, 0.0), new Color3f(0.2f, 0.2f, 0.2f)));
+        scene.addObject(new Sphere(new Vector3(2.0, 2.0, -4.0), 2.25, new Color3f(1.0f, 0.2f, 0.2f)));
+        scene.addObject(new Sphere(new Vector3(-3.0, 1.0, -6.0), 2.0, new Color3f(0.2f, 0.2f, 1.0f)));
+        scene.addObject(new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Color3f(0.2f, 1.0f, .2f)));
 
     }
 
