@@ -2,7 +2,7 @@ package ca.retrylife.ics4u.rayzor.objects;
 
 import javax.vecmath.Color3f;
 
-import ca.retrylife.ics4u.rayzor.Ray;
+import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -21,11 +21,13 @@ public class Sphere extends SceneObject {
      * @param centre Centre point of sphere
      * @param radius Sphere radius
      * @param color  Sphere color
+     * @param albedo Reflectivity
      */
-    public Sphere(Vector3 centre, double radius, Color3f color) {
+    public Sphere(Vector3 centre, double radius, Color3f color, double albedo) {
         this.centre = centre;
         this.radius = radius;
         this.color = color;
+        this.albedo = albedo;
     }
 
     @Override
@@ -61,5 +63,11 @@ public class Sphere extends SceneObject {
             double min_distance = (t0 < t1) ? t0 : t1;
             return new Intersection(min_distance, this);
         }
+    }
+
+    @Override
+    public Vector3 getSurfaceNormal(Vector3 hitPoint) {
+
+        return Vector3.sub(hitPoint, centre).normalize();
     }
 }

@@ -2,7 +2,7 @@ package ca.retrylife.ics4u.rayzor.objects;
 
 import javax.vecmath.Color3f;
 
-import ca.retrylife.ics4u.rayzor.Ray;
+import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
@@ -17,11 +17,14 @@ public class Plane extends SceneObject {
      * 
      * @param origin Point
      * @param normal Normal
+     * @param color  Object color
+     * @param albedo Reflectivity
      */
-    public Plane(Vector3 origin, Vector3 normal, Color3f color) {
+    public Plane(Vector3 origin, Vector3 normal, Color3f color, double albedo) {
         this.origin = origin;
         this.normal = normal;
         this.color = color;
+        this.albedo = albedo;
 
     }
 
@@ -55,6 +58,11 @@ public class Plane extends SceneObject {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Vector3 getSurfaceNormal(Vector3 hitPoint) {
+        return Vector3.negate(normal);
     }
 
 }

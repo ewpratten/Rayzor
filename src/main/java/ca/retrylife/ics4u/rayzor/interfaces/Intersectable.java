@@ -1,6 +1,6 @@
 package ca.retrylife.ics4u.rayzor.interfaces;
 
-import ca.retrylife.ics4u.rayzor.Ray;
+import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
 
 /**

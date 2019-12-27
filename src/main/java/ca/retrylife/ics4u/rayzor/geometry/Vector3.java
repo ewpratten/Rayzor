@@ -1,5 +1,7 @@
 package ca.retrylife.ics4u.rayzor.geometry;
 
+import javax.vecmath.Color3f;
+
 /**
  * Vector3 provides a small java 3D vector implementation.
  */
@@ -28,6 +30,23 @@ public class Vector3 {
      */
     public Vector3(Vector3 other) {
         this(other.x, other.y, other.z);
+    }
+
+    /**
+     * Create a Vector3 from a Color3f
+     * @param c Color3f
+     * @return Vector3
+     */
+    public static Vector3 fromColor3f(Color3f c) {
+        return new Vector3(c.x, c.y, c.z);
+    }
+
+    /**
+     * Convert the vector to a Color3f object
+     * @return Color3f
+     */
+    public Color3f toColor3f() {
+        return new Color3f((float)x, (float)y, (float)z);
     }
 
     /**
@@ -111,6 +130,49 @@ public class Vector3 {
      */
     public static Vector3 sub(Vector3 a, Vector3 b) {
         return new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
+    }
+
+    /**
+     * Add two vectors
+     * 
+     * @param a First vector
+     * @param b Second vector
+     * @return Sum
+     */
+    public static Vector3 add(Vector3 a, Vector3 b) {
+        return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+    }
+
+    /**
+     * Get the inverse of a vector
+     * 
+     * @param x Vector
+     * @return Inverse
+     */
+    public static Vector3 negate(Vector3 x) {
+        return new Vector3(-x.x, -x.y, -x.z);
+    }
+
+    /**
+     * Multiply two vectors
+     * 
+     * @param a First vector
+     * @param b Second vector
+     * @return Product
+     */
+    public static Vector3 mul(Vector3 a, Vector3 b) {
+        return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
+    }
+
+    /**
+     * Multiply a vector and a scalar
+     * 
+     * @param a Vector
+     * @param b Scalar
+     * @return Product
+     */
+    public static Vector3 mul(Vector3 a, double b) {
+        return new Vector3(a.x * b, a.y * b, a.z * b);
     }
 
 }

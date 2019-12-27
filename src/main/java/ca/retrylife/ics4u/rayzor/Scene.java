@@ -7,7 +7,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.vecmath.Color3f;
+
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
+import ca.retrylife.ics4u.rayzor.geometry.Vector3;
+import ca.retrylife.ics4u.rayzor.lighting.DirectionalLight;
+import ca.retrylife.ics4u.rayzor.lighting.Light;
+import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.objects.SceneObject;
 
 /**
@@ -15,12 +21,33 @@ import ca.retrylife.ics4u.rayzor.objects.SceneObject;
  */
 public class Scene {
 
+    // Constants
+    public final double SHADOW_BIAS = 1e-13;
+
     // Scene sizing
     public Dimension size;
     public double fov;
 
     // Scene objects
     ArrayList<SceneObject> objects = new ArrayList<>();
+    ArrayList<Light> lights = new ArrayList<>();
+
+    /**
+     * Create a scene of a specific size with pre-defined objects
+     * 
+     * @param size    Scene size
+     * @param fov     Scene FOV
+     * @param lights  Scene light sources
+     * @param objects Renderable objects for scene
+     */
+    public Scene(Dimension size, double fov, Light[] lights, SceneObject... objects) {
+        this(size, fov);
+
+        // Add all objects
+        this.objects.addAll(Arrays.asList(objects));
+        this.lights.addAll(Arrays.asList(lights));
+
+    }
 
     /**
      * Create a scene of a specific size with pre-defined objects
@@ -29,7 +56,7 @@ public class Scene {
      * @param fov     Scene FOV
      * @param objects Renderable objects for scene
      */
-    public Scene(Dimension size, double fov, SceneObject objects) {
+    public Scene(Dimension size, double fov, SceneObject... objects) {
         this(size, fov);
 
         // Add all objects
@@ -58,6 +85,15 @@ public class Scene {
      */
     public void addObject(SceneObject obj) {
         objects.add(obj);
+    }
+
+    /**
+     * Add a light to the scene
+     * 
+     * @param light Scene light
+     */
+    public void addLight(Light light) {
+        lights.add(light);
     }
 
     /**
@@ -92,6 +128,43 @@ public class Scene {
     }
 
     /**
+     * Calculate the color for a ray intersection
+     * 
+     * @param ray          Ray
+     * @param intersection Ray intersection
+     * @return Calculated color
+     */
+    public Color3f getColor(Ray ray, Intersection intersection) {
+
+        Vector3 output = Vector3.zero();
+
+        // Calculate the hit point
+        Vector3 hitPoint = Vector3.add(ray.origin, Vector3.mul(ray.direction, intersection.distance));
+
+        // Find the surface's normal
+        Vector3 surfaceNormal = intersection.object.getSurfaceNormal(hitPoint);
+
+        // Calculate each scene light
+        for (Light light : lights) {
+
+            // Calculate the light's color
+            Vector3 lightColor = light.getColorVectorForRay(this, intersection, hitPoint, surfaceNormal);
+
+            // Accumulate the color
+            output = Vector3.add(output, lightColor);
+
+        }
+
+        // Build color vector into a color
+        Color3f color = output.toColor3f();
+
+        // Clamp the color
+        color.clamp(0.0f, 1.0f);
+
+        return color;
+    }
+
+    /**
      * Render the scene to an image
      * 
      * @return Rendered image
@@ -107,24 +180,22 @@ public class Scene {
 
                 // Create ray for pixel
                 Ray ray = Ray.prime(x, y, this);
-                Intersection i = follow(ray);
-
-                // Check each scene object
-                // for (SceneObject object : objects) {
+                Intersection intersection = follow(ray);
 
                 // Check for intersection
-                if (i != null) {
+                if (intersection != null) {
+
+                    // Calculate the color for the ray
+                    Color3f color = getColor(ray, intersection);
 
                     // Set the pixel value
-                    frame.setRGB(x, y, new Color(Math.round(i.object.color.x * 254), Math.round(i.object.color.y * 254),
-                            Math.round(i.object.color.z * 254)).getRGB());
+                    frame.setRGB(x, y,
+                            new Color(Math.round(color.x * 254), Math.round(color.y * 254), Math.round(color.z * 254))
+                                    .getRGB());
 
-                    // System.out.println("PX");
                 } else {
                     frame.setRGB(x, y, Color.black.getRGB());
                 }
-
-                // }
 
             }
 
