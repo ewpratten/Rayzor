@@ -63,10 +63,9 @@ public class Ray {
 
         // Create a direction vector
         Vector3 directionVector = new Vector3(sensorX, sensorY, -1.0);
-        directionVector.normalize();
 
         // Return the newly generated ray
-        return new Ray(new Vector3(0, 0, 0), directionVector);
+        return new Ray(new Vector3(0, 0, 0), directionVector.normalize());
     }
 
     @Override

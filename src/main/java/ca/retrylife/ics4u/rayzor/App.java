@@ -30,7 +30,7 @@ public class App implements Runnable {
         scene = new Scene(new Dimension(800, 600), 90.0);
 
         // Add a sphere to the scene to be rendered
-        Sphere s = new Sphere(new Vector3(0.0, 0.0, -10.0), 1.0, new Color3f(.4f, 1.f, .4f));
+        Sphere s = new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Color3f(.4f, 1.f, .4f));
         scene.addObject(s);
 
     }
