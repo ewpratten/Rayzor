@@ -21,7 +21,7 @@ import ca.retrylife.ics4u.rayzor.objects.SceneObject;
 public class Scene {
 
     // Constants
-    public final double SHADOW_BIAS = 1e-14;
+    public final double SHADOW_BIAS = 1e-12;
     public final int MAX_DEPTH = 10;
 
     // Scene sizing

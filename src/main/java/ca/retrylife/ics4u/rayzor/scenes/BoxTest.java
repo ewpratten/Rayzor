@@ -36,10 +36,11 @@ public class BoxTest implements IScene {
 				new Sphere(new Vector3(-3.0, 1.0, -6.0), 2.0, new Material(new Color3f(0.2f, 0.2f, 1.0f), 3.0, true)));
 		scene.addObject(
 				new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Material(new Color3f(0.2f, 1.0f, .2f), 0.2, true)));
+		scene.addObject(
+				new Sphere(new Vector3(-1.0, 0.0, -4.0), 0.5, new Material(new Color3f(0.2f, 0.4f, .2f), 1, true)));
 
 		// Boxes
-		scene.addObject(
-				new Cube(new Vector3(-1.0, -1.0, -3.0), 0.5, new Material(new Color3f(1.0f, 0.0f, 0.0f), 100.0, true)));
+		scene.addObject(new Cube(new Vector3(-1.0, -1.0, -3.0), 0.5, new Material(new Color3f(1.0f, 1.0f, 1.0f), 0.01, false)));
 
 		/* Add lights to scene */
 		scene.addLight(new DirectionalLight(new Vector3(-0.25, -1.0, -1.0), new Color3f(1.0f, 1.0f, 1.0f), 0.3));

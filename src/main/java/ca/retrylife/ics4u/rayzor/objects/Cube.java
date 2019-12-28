@@ -107,8 +107,22 @@ public class Cube extends SceneObject {
 
     @Override
     public Point2f getTextureCoords(Vector3 hitPoint) {
-        // TODO Auto-generated method stub
-        return null;
+        // Find the surface normal
+        Vector3 normal = getSurfaceNormal(hitPoint);
+
+        // Calculate hit coords
+        Vector3 xAxis = normal.cross(new Vector3(0.0, 0.0, 1.0));
+
+        if (xAxis.length() == 0.0) {
+            xAxis = normal.cross(new Vector3(0.0, 1.0, 0.0));
+        }
+
+        Vector3 yAxis = normal.cross(xAxis);
+
+        // Compute hit from origin against axes
+        Vector3 hitVector = Vector3.sub(hitPoint, centre);
+
+        return new Point2f((float) hitVector.dot(xAxis), (float) hitVector.dot(yAxis));
     }
 
     @Override
@@ -122,29 +136,31 @@ public class Cube extends SceneObject {
         // return new Vector3((double)(p.x / Math.abs(d.x) * bias), (double)(p.y /
         // Math.abs(d.y) * bias), (double)(p.z / Math.abs(d.z) * bias)).normalize();
 
-        Vector3 normal = Vector3.zero();
-        Vector3 localPoint = Vector3.sub(hitPoint, centre);
-        double min = Double.POSITIVE_INFINITY;
-        double distance = Math.abs(size.x - Math.abs(localPoint.x));
+        // Vector3 normal = Vector3.zero();
+        // Vector3 localPoint = Vector3.sub(hitPoint, centre);
+        // double min = Double.POSITIVE_INFINITY;
+        // double distance = Math.abs(size.x - Math.abs(localPoint.x));
 
-        if (distance < min) {
-            min = distance;
-            normal = new Vector3(1.0, 0.0, 0.0);
-            normal = Vector3.mul(normal, Math.copySign(1, localPoint.x));
-        }
-        distance = Math.abs(size.y - Math.abs(localPoint.y));
-        if (distance < min) {
-            min = distance;
-            normal = new Vector3(0.0, 1.0, 0.0);
-            normal = Vector3.mul(normal, Math.copySign(1, localPoint.y));
-        }
-        distance = Math.abs(size.z - Math.abs(localPoint.z));
-        if (distance < min) {
-            min = distance;
-            normal = new Vector3(0.0, 0.0, 1.0);
-            normal = Vector3.mul(normal, Math.copySign(1, localPoint.z));
-        }
-        return normal.normalize();
+        // if (distance < min) {
+        //     min = distance;
+        //     normal = new Vector3(1.0, 0.0, 0.0);
+        //     normal = Vector3.mul(normal, Math.copySign(1, localPoint.x));
+        // }
+        // distance = Math.abs(size.y - Math.abs(localPoint.y));
+        // if (distance < min) {
+        //     min = distance;
+        //     normal = new Vector3(0.0, 1.0, 0.0);
+        //     normal = Vector3.mul(normal, Math.copySign(1, localPoint.y));
+        // }
+        // distance = Math.abs(size.z - Math.abs(localPoint.z));
+        // if (distance < min) {
+        //     min = distance;
+        //     normal = new Vector3(0.0, 0.0, 1.0);
+        //     normal = Vector3.mul(normal, Math.copySign(1, localPoint.z));
+        // }
+        // return normal.normalize();
+
+        return new Vector3(0.0, 0.0, 1.0);
     }
 
 }

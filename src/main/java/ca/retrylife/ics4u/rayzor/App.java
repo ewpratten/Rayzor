@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import ca.retrylife.ics4u.rayzor.scenes.Balls;
 import ca.retrylife.ics4u.rayzor.scenes.BoxTest;
+import ca.retrylife.ics4u.rayzor.scenes.Cornell;
 import ca.retrylife.ics4u.rayzor.scenes.IScene;
 import ca.retrylife.ics4u.rayzor.scenes.Rubik;
 
