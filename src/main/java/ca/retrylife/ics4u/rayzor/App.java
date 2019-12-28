@@ -1,7 +1,6 @@
 package ca.retrylife.ics4u.rayzor;
 
 import javax.imageio.ImageIO;
-import javax.vecmath.Color3f;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -38,7 +37,7 @@ public class App implements Runnable {
         // 1920 x 1080
         // 4K
         // 16K: 15360 x 8640
-        scene = new Scene(new Dimension(800, 600), 95.0);
+        scene = new Scene(new Dimension(900, 600), 95.0);
 
         // Build the scene
         world.build(scene);

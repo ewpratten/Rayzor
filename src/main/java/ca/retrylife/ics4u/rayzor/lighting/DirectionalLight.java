@@ -1,10 +1,9 @@
 package ca.retrylife.ics4u.rayzor.lighting;
 
-import javax.vecmath.Color3f;
-
 import ca.retrylife.ics4u.rayzor.Scene;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
-import ca.retrylife.ics4u.rayzor.geometry.Vector3;
+import ca.retrylife.libvec.Vector3;
+import ca.retrylife.libvec.Color3;
 
 /**
  * A distant directional light source
@@ -21,7 +20,7 @@ public class DirectionalLight extends Light {
      * @param color     Light color
      * @param intensity Light intensity
      */
-    public DirectionalLight(Vector3 direction, Color3f color, double intensity) {
+    public DirectionalLight(Vector3 direction, Color3 color, double intensity) {
         this.direction = direction;
         this.color = color;
         this.intensity = intensity;
@@ -55,13 +54,12 @@ public class DirectionalLight extends Light {
         double reflected = intersection.object.material.albedo / Math.PI;
 
         // Calculate the diffuse color
-        Vector3 diffuseColor = Vector3.mul(Vector3.mul(
-                Vector3.mul(Vector3.fromColor3f(intersection.object.material.color), Vector3.fromColor3f(color)),
-                lightPower), reflected);
-            
+        Vector3 diffuseColor = Vector3
+                .mul(Vector3.mul(Vector3.mul(intersection.object.material.color, color), lightPower), reflected);
+
         // If there is no reflection, there is no reflectivity
         if (intersection.object.material.isReflective) {
-            
+
             // Create a reflected ray
             Ray reflectedRay = Ray.createReflection(surfaceNormal, ray.direction, hitPoint, scene.SHADOW_BIAS);
 

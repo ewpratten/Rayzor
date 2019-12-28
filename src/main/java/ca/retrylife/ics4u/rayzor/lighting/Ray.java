@@ -1,7 +1,7 @@
 package ca.retrylife.ics4u.rayzor.lighting;
 
 import ca.retrylife.ics4u.rayzor.Scene;
-import ca.retrylife.ics4u.rayzor.geometry.Vector3;
+import ca.retrylife.libvec.Vector3;
 
 /**
  * A castable ray

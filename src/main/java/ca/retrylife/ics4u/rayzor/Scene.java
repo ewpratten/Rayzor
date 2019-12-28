@@ -7,13 +7,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.vecmath.Color3f;
-
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
-import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 import ca.retrylife.ics4u.rayzor.lighting.Light;
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.objects.SceneObject;
+import ca.retrylife.libvec.Vector3;
+import ca.retrylife.libvec.Color3;
 
 /**
  * A renderable scene
@@ -134,9 +133,9 @@ public class Scene {
      * @param intersection Ray intersection
      * @return Calculated color
      */
-    public Color3f getColor(Ray ray, Intersection intersection) {
+    public Color3 getColor(Ray ray, Intersection intersection) {
 
-        Vector3 output = Vector3.zero();
+        Vector3 output = new Vector3(0.0f, 0.0f, 0.0f);
 
         // Calculate each scene light
         for (Light light : lights) {
@@ -145,17 +144,14 @@ public class Scene {
             Vector3 lightColor = light.castRay(this, ray, 0);
 
             // Accumulate the color
-            output = Vector3.add(output, lightColor);
+            output = Color3.add(output, lightColor);
 
         }
 
-        // Build color vector into a color
-        Color3f color = output.toColor3f();
-
         // Clamp the color
-        color.clamp(0.0f, 1.0f);
+        output.clamp(0.0, 1.0);
 
-        return color;
+        return new Color3((float) output.x, (float) output.y, (float) output.z);
     }
 
     /**
@@ -180,12 +176,10 @@ public class Scene {
                 if (intersection != null) {
 
                     // Calculate the color for the ray
-                    Color3f color = getColor(ray, intersection);
+                    Color color = getColor(ray, intersection).toColor();
 
                     // Set the pixel value
-                    frame.setRGB(x, y,
-                            new Color(Math.round(color.x * 254), Math.round(color.y * 254), Math.round(color.z * 254))
-                                    .getRGB());
+                    frame.setRGB(x, y, color.getRGB());
 
                 } else {
                     frame.setRGB(x, y, Color.black.getRGB());
