@@ -1,6 +1,6 @@
 package ca.retrylife.ics4u.rayzor.textures;
 
-import javax.vecmath.Color3f;
+import ca.retrylife.libvec.Color3;
 
 /**
  * Renderable material base class
@@ -10,7 +10,7 @@ public class Material {
     /**
      * Material color vector
      */
-    public Color3f color;
+    public Color3 color;
 
     /**
      * Reflectivity of the material
@@ -26,7 +26,7 @@ public class Material {
      * @param albedo Material reflectivity
      * @param isReflective Is the material reflective?
      */
-    public Material(Color3f color, double albedo, boolean isReflective) {
+    public Material(Color3 color, double albedo, boolean isReflective) {
         this.color = color;
         this.albedo = albedo;
         this.isReflective = isReflective;
@@ -38,7 +38,7 @@ public class Material {
      * @param color  Material color
      * @param albedo Material reflectivity
      */
-    public Material(Color3f color, double albedo) {
+    public Material(Color3 color, double albedo) {
         this(color, albedo, false);
     }
 

@@ -1,7 +1,6 @@
 package ca.retrylife.ics4u.rayzor;
 
 import javax.imageio.ImageIO;
-import javax.vecmath.Color3f;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;

@@ -13,6 +13,9 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+
+    maven { url 'https://jitpack.io' }
+
 }
 
 dependencies {
@@ -26,11 +29,15 @@ dependencies {
 
     // Vector math library
     // https://mvnrepository.com/artifact/javax.vecmath/vecmath
-    compile group: 'javax.vecmath', name: 'vecmath', version: '1.5.2'
+    // compile group: 'javax.vecmath', name: 'vecmath', version: '1.5.2'
+
+    implementation 'com.github.ewpratten:libvec:v1.0.1'
 
     // JSON library
     // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    
 
 
 }

@@ -2,11 +2,9 @@ package ca.retrylife.ics4u.rayzor.objects;
 
 import ca.retrylife.ics4u.rayzor.lighting.Ray;
 import ca.retrylife.ics4u.rayzor.textures.Material;
-
-import javax.vecmath.Point2f;
-
+import ca.retrylife.libvec.Vector3;
+import ca.retrylife.libvec.Point2;
 import ca.retrylife.ics4u.rayzor.geometry.Intersection;
-import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 
 /**
  * A sphere object
@@ -72,7 +70,7 @@ public class Sphere extends SceneObject {
     }
 
     @Override
-    public Point2f getTextureCoords(Vector3 hitPoint) {
+    public Point2 getTextureCoords(Vector3 hitPoint) {
         
         // Compute spherical coordinates
         double phi = Math.atan2(hitPoint.z, hitPoint.x);
@@ -82,6 +80,6 @@ public class Sphere extends SceneObject {
         phi = (1 + phi / Math.PI) * 0.5;
         theta = theta / Math.PI;
 
-        return new Point2f((float)phi, (float)theta);
+        return new Point2((float)phi, (float)theta);
     }
 }
