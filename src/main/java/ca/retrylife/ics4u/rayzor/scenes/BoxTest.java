@@ -6,6 +6,7 @@ import ca.retrylife.ics4u.rayzor.Scene;
 import ca.retrylife.ics4u.rayzor.geometry.Vector3;
 import ca.retrylife.ics4u.rayzor.lighting.DirectionalLight;
 import ca.retrylife.ics4u.rayzor.lighting.SphericalLight;
+import ca.retrylife.ics4u.rayzor.objects.Cube;
 import ca.retrylife.ics4u.rayzor.objects.Plane;
 import ca.retrylife.ics4u.rayzor.objects.Sphere;
 import ca.retrylife.ics4u.rayzor.textures.Material;
@@ -13,7 +14,7 @@ import ca.retrylife.ics4u.rayzor.textures.Material;
 /**
  * "Balls" is a demonstration of reflectivity with spheres and planes
  */
-public class Balls implements IScene {
+public class BoxTest implements IScene {
 
 	@Override
 	public void build(Scene scene) {
@@ -35,6 +36,10 @@ public class Balls implements IScene {
 				new Sphere(new Vector3(-3.0, 1.0, -6.0), 2.0, new Material(new Color3f(0.2f, 0.2f, 1.0f), 3.0, true)));
 		scene.addObject(
 				new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Material(new Color3f(0.2f, 1.0f, .2f), 0.2, true)));
+
+		// Boxes
+		scene.addObject(
+				new Cube(new Vector3(-1.0, -1.0, -3.0), 0.5, new Material(new Color3f(1.0f, 0.0f, 0.0f), 100.0, true)));
 
 		/* Add lights to scene */
 		scene.addLight(new DirectionalLight(new Vector3(-0.25, -1.0, -1.0), new Color3f(1.0f, 1.0f, 1.0f), 0.3));

@@ -8,14 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import ca.retrylife.ics4u.rayzor.geometry.Vector3;
-import ca.retrylife.ics4u.rayzor.lighting.DirectionalLight;
-import ca.retrylife.ics4u.rayzor.lighting.SphericalLight;
-import ca.retrylife.ics4u.rayzor.objects.Plane;
-import ca.retrylife.ics4u.rayzor.objects.Sphere;
 import ca.retrylife.ics4u.rayzor.scenes.Balls;
+import ca.retrylife.ics4u.rayzor.scenes.BoxTest;
 import ca.retrylife.ics4u.rayzor.scenes.IScene;
-import ca.retrylife.ics4u.rayzor.textures.Material;
+import ca.retrylife.ics4u.rayzor.scenes.Rubik;
 
 public class App implements Runnable {
 
