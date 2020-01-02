@@ -25,7 +25,9 @@ public class Scene {
 
     // Scene sizing
     public Dimension size;
-    public double fov;
+
+    // Rendering camera
+    public Camera camera;
 
     // Scene objects
     ArrayList<SceneObject> objects = new ArrayList<>();
@@ -35,12 +37,12 @@ public class Scene {
      * Create a scene of a specific size with pre-defined objects
      * 
      * @param size    Scene size
-     * @param fov     Scene FOV
+     * @param cam     Scene Camera
      * @param lights  Scene light sources
      * @param objects Renderable objects for scene
      */
-    public Scene(Dimension size, double fov, Light[] lights, SceneObject... objects) {
-        this(size, fov);
+    public Scene(Dimension size, Camera cam, Light[] lights, SceneObject... objects) {
+        this(size, cam);
 
         // Add all objects
         this.objects.addAll(Arrays.asList(objects));
@@ -52,11 +54,11 @@ public class Scene {
      * Create a scene of a specific size with pre-defined objects
      * 
      * @param size    Scene size
-     * @param fov     Scene FOV
+     * @param cam     Scene Camera
      * @param objects Renderable objects for scene
      */
-    public Scene(Dimension size, double fov, SceneObject... objects) {
-        this(size, fov);
+    public Scene(Dimension size, Camera cam, SceneObject... objects) {
+        this(size, cam);
 
         // Add all objects
         this.objects.addAll(Arrays.asList(objects));
@@ -67,13 +69,13 @@ public class Scene {
      * Create a scene of a specific size
      * 
      * @param size Scene size
-     * @param fov  Scene FOV
+     * @param cam  Scene Camera
      */
-    public Scene(Dimension size, double fov) {
+    public Scene(Dimension size, Camera cam) {
 
         // Set locals
         this.size = size;
-        this.fov = fov;
+        this.camera = cam;
 
     }
 
