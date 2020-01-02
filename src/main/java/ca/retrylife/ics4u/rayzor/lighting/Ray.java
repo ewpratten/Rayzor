@@ -1,5 +1,6 @@
 package ca.retrylife.ics4u.rayzor.lighting;
 
+import ca.retrylife.ics4u.rayzor.Camera;
 import ca.retrylife.ics4u.rayzor.Scene;
 import ca.retrylife.libvec.Vector3;
 
@@ -42,7 +43,7 @@ public class Ray {
         double aspectRatio = (double) scene.size.getWidth() / (double) scene.size.getHeight();
 
         // Determine FOV adjustment factor
-        double fovAdjustment = Math.tan(Math.toRadians(scene.fov) / 2.0);
+        double fovAdjustment = Math.tan(Math.toRadians(scene.camera.fov) / 2.0);
 
         // Add .5 to our pixel position, and cast to a double. This will cause the ray
         // to pass through the center of the pixel, rather than it's edge
@@ -52,6 +53,10 @@ public class Ray {
         // Convert the scene width from pixels [0-800] to percentage [0.0-1.0]
         double sensorX = pixelCentreX / (double) scene.size.getWidth();
         double sensorY = pixelCentreY / (double) scene.size.getHeight();
+
+        // Adjust sensor coords by the camera pose
+        sensorX += scene.camera.x;
+        sensorY -= scene.camera.y;
 
         // Adjust the sensor
         // Y is now flipped, so positive is up
@@ -63,10 +68,10 @@ public class Ray {
         sensorY *= fovAdjustment;
 
         // Create a direction vector
-        Vector3 directionVector = new Vector3(sensorX, sensorY, -1.0);
+        Vector3 directionVector = new Vector3(sensorX, sensorY, -1.0 + scene.camera.z);
 
         // Return the newly generated ray
-        return new Ray(new Vector3(0, 0, 0), directionVector.normalize());
+        return new Ray(new Vector3(scene.camera.x, scene.camera.y, scene.camera.z), directionVector.normalize());
     }
 
     /**

@@ -21,7 +21,7 @@ public class SceneTest {
     @Test
     public void testCanRender() {
         // Build a scene to render
-        Scene scene = new Scene(new Dimension(800, 600), 90.0);
+        Scene scene = new Scene(new Dimension(800, 600), new Camera(0.0, 0.0, 0.0, 90.0));
 
         // Add a sphere to the scene to be rendered
         Sphere s = new Sphere(new Vector3(0.0, 0.0, -5.0), 1.0, new Material(new Color3(.4f, 1.f, .4f), 0.18));

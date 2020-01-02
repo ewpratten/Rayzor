@@ -17,7 +17,8 @@ public class App implements Runnable {
 
     Scene scene;
 
-    // Balls world
+    // World setting
+    // This can be switched out with any class that implements IScene.
     IScene world = new Balls();
 
     public static void main(String[] args) {
@@ -37,11 +38,10 @@ public class App implements Runnable {
         // 1920 x 1080
         // 4K
         // 16K: 15360 x 8640
-        scene = new Scene(new Dimension(800, 600), 95.0);
+        scene = new Scene(new Dimension(800, 600), new Camera(90.0));
 
         // Build the scene
         world.build(scene);
-        
 
     }
 
