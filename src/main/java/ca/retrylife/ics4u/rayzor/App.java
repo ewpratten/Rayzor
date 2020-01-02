@@ -36,7 +36,7 @@ public class App implements Runnable {
 
         // Default: 800 x 600
         // 1920 x 1080
-        // 4K
+        // 4K: 3840 x 2160
         // 16K: 15360 x 8640
         scene = new Scene(new Dimension(800, 600), new Camera(90.0));
 
