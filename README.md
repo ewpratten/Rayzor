@@ -34,3 +34,17 @@ This software does CPU rendering (I have yet to learn anything about GPU renderi
 
 
 As you can see, not the world's best render times, but pretty good for my first try, with absolutely no 3D graphics experience of any kind.
+
+## Using the "RT" viewer
+This project has a second, experimental frontend that can be found at `ca.retrylife.ics4u.rayzor.RTApp`. It uses @salamander2's [hsa2](https://github.com/salamander2/HSA2) graphics library to display a simple ray-traced "world". It runs at about 0.004 FPS on my computer, and movement is slow because of it.
+
+Here are the keybindings for the program:
+
+| Key | Action               |
+| --- | -------------------- |
+| W   | Move camera forward  |
+| S   | Move camera backward |
+| A   | Move camera left     |
+| D   | Move camera right    |
+| Q   | Move camera down     |
+| E   | Move camera up       |
