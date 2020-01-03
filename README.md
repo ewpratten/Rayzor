@@ -35,6 +35,16 @@ This software does CPU rendering (I have yet to learn anything about GPU renderi
 
 As you can see, not the world's best render times, but pretty good for my first try, with absolutely no 3D graphics experience of any kind.
 
+## Using the main program
+
+The main program can be run with:
+
+```sh
+./graldew :run
+```
+
+This will ray-trace a pre-defined scene (stored in `src/main/java/ca/retrylife/ics4u/rayzor/scenes/Balls.java`), and output the render to `output.png`
+
 ## Using the "RT" viewer
 This project has a second, experimental frontend that can be found at `ca.retrylife.ics4u.rayzor.RTApp`. It uses @salamander2's [hsa2](https://github.com/salamander2/HSA2) graphics library to display a simple ray-traced "world". It runs at about 0.004 FPS on my computer, and movement is slow because of it.
 
